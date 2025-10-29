@@ -40,8 +40,8 @@ Here is a screenshot showing the chatting web application with requests and resp
 
 ## Getting Started
 
-| [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/get-started-with-ai-agents) | [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/get-started-with-ai-agents) |
-|---|---|
+Open in GitHub Codespaces
+Open in Dev Containers
 
 1. Click `Open in GitHub Codespaces` or `Dev Containers` button above
 2. Wait for the environment to load
@@ -50,10 +50,10 @@ Here is a screenshot showing the chatting web application with requests and resp
    azd up
    ```
 4. Follow the prompts to select your Azure subscription and region
-5. Wait for deployment to complete (5-20 minutes) - you'll get a web app URL when finished
-6. TODO: Deploy Hosted Agent using python script create_agent and update the container azure search endpoint and key env variables
-7. TODO: Load sample data to Azure Search
-8. TODO: Test in script
+5. Wait for deployment to complete (5-10 minutes) - you'll get Azure Foundry Project URL and Azure AI Search URL when finished
+6. TODO: Load sample data to Azure AI Search
+7. TODO: Deploy NLWeb Hosted Agent using azd command or python script create_agent
+8. TODO: Test in the console script
 
 For detailed deployment options and troubleshooting, see the [full deployment guide](./docs/deployment.md).
 **After deployment, try these [sample questions](./docs/sample_questions.md) to test your agent.**
