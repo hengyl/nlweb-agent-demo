@@ -1,0 +1,12 @@
+preferred_endpoint: azure_openai
+
+endpoints:
+  azure_openai:
+    api_key_env: AZURE_OPENAI_API_KEY
+    api_endpoint_env: AZURE_OPENAI_ENDPOINT
+    api_version_env: "2024-12-01-preview"
+    auth_method: AZURE_OPENAI_AUTH_METHOD
+    llm_type: azure_openai
+    models:
+      high: gpt-4o
+      low: gpt-4.1-mini

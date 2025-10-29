@@ -1,0 +1,1 @@
+2025-10-28 15:41:34,053 - embedding_wrapper - ERROR - error:151 - Batch embedding request timed out after 60s with provider azure_openai
