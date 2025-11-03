@@ -1,3 +1,9 @@
+# Check if run_load_data environment variable is set to true
+if ($env:RUN_LOAD_DATA -ne "true") {
+    Write-Host "Skipping data loading script. Set env:RUN_LOAD_DATA to 'true' to run this script." -ForegroundColor Yellow
+    exit 0
+}
+
 ./scripts/load_python_env.ps1
 
 $venvPythonPath = "./.venv/scripts/python.exe"
