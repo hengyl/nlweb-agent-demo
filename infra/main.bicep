@@ -232,6 +232,35 @@ resource existingProjectRG 'Microsoft.Resources/resourceGroups@2021-04-01' exist
   name: split(azureExistingAIProjectResourceId, '/')[4]
 }
 
+resource existingProjectResource 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' existing = if (!empty(azureExistingAIProjectResourceId)) {
+  scope: existingProjectRG
+  name: '${split(azureExistingAIProjectResourceId, '/')[8]}/${split(azureExistingAIProjectResourceId, '/')[10]}'
+}
+
+var projectPrincipalId = !empty(azureExistingAIProjectResourceId)
+  ? existingProjectResource.identity.principalId
+  : ai!.outputs.aiProjectPrincipalId
+
+module projectRoleAzureAIUser  'core/security/role.bicep' = {
+  name: 'project-role-azure-ai-user'
+  scope: rg
+  params: {
+    principalType: 'ServicePrincipal'
+    principalId: projectPrincipalId
+    roleDefinitionId: '53ca6127-db72-4b80-b1b0-d745d6d5456d'
+  }
+}
+
+module projectRoleSearchIndexDataContributorRG 'core/security/role.bicep' = if (useSearchService) {
+  name: 'project-role-azure-index-data-contributor-rg'
+  scope: rg
+  params: {
+    principalType: 'ServicePrincipal'
+    principalId: projectPrincipalId
+    roleDefinitionId: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+  }
+}
+
 module userRoleAzureAIDeveloper 'core/security/role.bicep' = {
   name: 'user-role-azureai-developer'
   scope: rg
@@ -296,7 +325,6 @@ output AZURE_RESOURCE_GROUP string = rg.name
 
 // Outputs required for local development server
 output AZURE_TENANT_ID string = tenant().tenantId
-output AZURE_EXISTING_AIPROJECT_RESOURCE_ID string = projectResourceId
 output AZURE_AI_AGENT_DEPLOYMENT_NAME string = agentDeploymentName
 output AZURE_AI_SEARCH_CONNECTION_NAME string = searchConnectionName
 output AZURE_AI_EMBED_DEPLOYMENT_NAME string = embeddingDeploymentName
@@ -304,8 +332,6 @@ output AZURE_AI_SEARCH_INDEX_NAME string = aiSearchIndexName
 output AZURE_AI_SEARCH_ENDPOINT string = searchServiceEndpoint
 output AZURE_AI_EMBED_DIMENSIONS string = embeddingDeploymentDimensions
 output AZURE_AI_AGENT_NAME string = agentName
-output AZURE_EXISTING_AGENT_ID string = agentID
-output AZURE_EXISTING_AIPROJECT_ENDPOINT string = projectEndpoint
 output AZURE_OPENAI_ENDPOINT string = aoaiEndpoint
 output ENABLE_AZURE_MONITOR_TRACING bool = enableAzureMonitorTracing
 output AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED bool = azureTracingGenAIContentRecordingEnabled

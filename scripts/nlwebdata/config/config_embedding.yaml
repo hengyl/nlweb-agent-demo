@@ -1,9 +1,0 @@
-preferred_provider: azure_openai
-
-providers:
-  azure_openai:
-    api_key_env: AZURE_OPENAI_API_KEY
-    api_endpoint_env: AZURE_OPENAI_ENDPOINT
-    api_version_env: "2024-10-21"  # Specific API version for embeddings
-    auth_method: azure_ad
-    model: text-embedding-3-small

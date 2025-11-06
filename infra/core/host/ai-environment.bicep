@@ -82,6 +82,7 @@ output aiServiceId string = cognitiveServices.outputs.id
 output aiServicesName string = cognitiveServices.outputs.name
 output aiProjectEndpoint string = cognitiveServices.outputs.projectEndpoint
 output aiServicePrincipalId string = cognitiveServices.outputs.accountPrincipalId
+output aiProjectPrincipalId string = cognitiveServices.outputs.projectPrincipalId
 
 output searchServiceId string = !empty(searchServiceName) ? searchService.outputs.id : ''
 output searchServiceName string = !empty(searchServiceName) ? searchService.outputs.name : ''

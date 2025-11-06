@@ -1,0 +1,37 @@
+# NLWeb Configuration for Azure Hello World Example
+# This configuration uses Azure OpenAI for LLM/embeddings and Azure AI Search for retrieval
+
+port: 8000
+
+llm:
+  provider: azure_openai
+  import_path: nlweb_azure_models.llm.azure_oai
+  class_name: provider
+  endpoint_env: AZURE_OPENAI_ENDPOINT
+  api_version: "2024-02-01"
+  auth_method: azure_ad  # Use 'azure_ad' for managed identity
+  models:
+    high: gpt-4.1
+    low: gpt-4.1-mini
+
+embedding:
+  provider: azure_openai
+  import_path: nlweb_azure_models.embedding.azure_oai_embedding
+  class_name: get_azure_embedding
+  endpoint_env: AZURE_OPENAI_ENDPOINT
+  auth_method: azure_ad  # Use 'azure_ad' for managed identity
+  model: text-embedding-3-small
+
+retrieval:
+  provider: azure_ai_search
+  import_path: nlweb_azure_vectordb.azure_search_client
+  class_name: AzureSearchClient
+  api_endpoint_env: AZURE_AI_SEARCH_ENDPOINT
+  auth_method: azure_ad
+  index_name: embeddings1536
+  writer:
+    import_path: nlweb_azure_vectordb.azure_search_writer
+    class_name: AzureSearchWriter
+
+server:
+  host: localhost
