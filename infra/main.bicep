@@ -125,7 +125,6 @@ var resourceToken = templateValidationMode? toLower(uniqueString(subscription().
 var tags = { 'azd-env-name': environmentName }
 
 var tempAgentID = !empty(aiAgentID) ? aiAgentID : ''
-var agentID = !empty(azureExistingAgentId) ? azureExistingAgentId : tempAgentID
 
 var aiChatModel = [
   {
@@ -178,6 +177,7 @@ var resolvedSearchServiceName = !useSearchService
   ? ''
   : !empty(searchServiceName) ? searchServiceName : '${abbrs.searchSearchServices}${resourceToken}'
   
+var acrResourceName = '${abbrs.containerRegistryRegistries}${resourceToken}'
 
 module ai 'core/host/ai-environment.bicep' = if (empty(azureExistingAIProjectResourceId)) {
   name: 'ai'
@@ -193,6 +193,7 @@ module ai 'core/host/ai-environment.bicep' = if (empty(azureExistingAIProjectRes
       ? ''
       : !empty(applicationInsightsName) ? applicationInsightsName : '${abbrs.insightsComponents}${resourceToken}'
     searchServiceName: resolvedSearchServiceName
+    acrResourceName: acrResourceName
     appInsightConnectionName: 'appinsights-connection'
     aoaiConnectionName: 'aoai-connection'
   }
@@ -223,6 +224,8 @@ var projectEndpoint = !empty(azureExistingAIProjectResourceId)
   : ai!.outputs.aiProjectEndpoint
 
 var aoaiEndpoint = replace(projectEndpoint, '/api/projects/${last(split(projectEndpoint, '/'))}', '')
+
+var acrLoginServer = ai!.outputs.containerRegistryLoginServer
 
 var resolvedApplicationInsightsName = !useApplicationInsights || !empty(azureExistingAIProjectResourceId)
   ? ''
@@ -335,3 +338,4 @@ output AZURE_AI_AGENT_NAME string = agentName
 output AZURE_OPENAI_ENDPOINT string = aoaiEndpoint
 output ENABLE_AZURE_MONITOR_TRACING bool = enableAzureMonitorTracing
 output AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED bool = azureTracingGenAIContentRecordingEnabled
+output AZURE_ACR_LOGIN_SERVER string = acrLoginServer

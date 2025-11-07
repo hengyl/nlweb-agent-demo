@@ -11,6 +11,8 @@ param appInsightsId string
 param appInsightConnectionString string
 param appInsightConnectionName string
 param aoaiConnectionName string
+param acrLoginServer string
+param acrResourceId string
 
 @allowed([ 'Enabled', 'Disabled' ])
 param publicNetworkAccess string = 'Enabled'
@@ -93,15 +95,33 @@ resource aiProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-pre
   }
 }
 
+resource connection 'Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview' = {
+  parent: aiProject
+  name: 'acr-connection'
+  properties: {
+    category: 'ContainerRegistry'
+    target: acrLoginServer
+    authType: 'ManagedIdentity'
+    isSharedToAll: true
+    credentials: {
+        clientId: aiProject.identity.principalId
+        resourceId: acrResourceId
+      }
+    metadata: {
+        ResourceId: acrResourceId
+      }
+  }
+}
+
 @batchSize(1)
 resource aiServicesDeployments 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = [for deployment in deployments: {
   parent: account
   name: deployment.name
   properties: {
     model: deployment.model
-    raiPolicyName: contains(deployment, 'raiPolicyName') ? deployment.raiPolicyName : null
+    raiPolicyName: deployment.?raiPolicyName ?? null
   }
-  sku: contains(deployment, 'sku') ? deployment.sku : {
+  sku: deployment.?sku ?? {
     name: 'Standard'
     capacity: 20
   }

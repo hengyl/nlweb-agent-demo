@@ -14,6 +14,8 @@ param logAnalyticsName string = ''
 param applicationInsightsName string = ''
 @description('The Azure Search resource name.')
 param searchServiceName string = ''
+@description('The ACR resource name.')
+param acrResourceName string = ''
 @description('The Application Insights connection name.')
 param appInsightConnectionName string
 param tags object = {}
@@ -40,6 +42,14 @@ module applicationInsights '../monitor/applicationinsights.bicep' =
     }
   }
 
+module acr './acr.bicep' = {
+  name: 'acr'
+  params: {
+    location: location
+    tags: tags
+    acrResourceName: acrResourceName
+  }
+}
 
 module cognitiveServices '../ai/cognitiveservices.bicep' = {
   name: 'cognitiveServices'
@@ -53,6 +63,8 @@ module cognitiveServices '../ai/cognitiveservices.bicep' = {
     appInsightConnectionName: appInsightConnectionName
     appInsightConnectionString: applicationInsights.outputs.connectionString
     aoaiConnectionName: aoaiConnectionName
+    acrLoginServer: acr.outputs.containerRegistryLoginServer
+    acrResourceId: acr.outputs.containerRegistryResourceId
   }
 }
 
@@ -90,3 +102,6 @@ output searchServiceEndpoint string = !empty(searchServiceName) ? searchService.
 
 output projectResourceId string = cognitiveServices.outputs.projectResourceId
 output searchConnectionId string = !empty(searchServiceName) ? searchService.outputs.searchConnectionId : ''
+
+output containerRegistryLoginServer string = acr.outputs.containerRegistryLoginServer
+output containerRegistryResourceId string = acr.outputs.containerRegistryResourceId

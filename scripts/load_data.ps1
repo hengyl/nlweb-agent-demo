@@ -1,10 +1,10 @@
-# Check if run_load_data environment variable is set to true
-if ($env:RUN_LOAD_DATA -ne "true") {
+# Check if run_load_data environment variable is set to false
+if ($env:RUN_LOAD_DATA -eq "false") {
     Write-Host "Skipping data loading script. Set env:RUN_LOAD_DATA to 'true' to run this script." -ForegroundColor Yellow
     exit 0
 }
 
-./load_python_env.ps1
+& "$PSScriptRoot/load_python_env.ps1"
 
 $venvPythonPath = "./.venv/scripts/python.exe"
 if (Test-Path -Path "/usr") {
@@ -14,6 +14,4 @@ if (Test-Path -Path "/usr") {
 
 Write-Host 'Running "load_data.py"'
 
-$cwd = (Get-Location)
-Start-Process -FilePath $venvPythonPath -ArgumentList "load_data.py" -Wait -NoNewWindow -workingDirectory "$cwd/nlweb-data"
-
+Start-Process -FilePath $venvPythonPath -ArgumentList "load_data.py" -Wait -NoNewWindow -workingDirectory "$PSScriptRoot/nlweb-data"
