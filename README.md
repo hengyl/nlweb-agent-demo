@@ -13,17 +13,35 @@ This solution deploys a web-based NLWeb chat application with an AI agent runnin
 Open in GitHub Codespaces
 Open in Dev Containers
 
-1. Click `Open in GitHub Codespaces` or `Dev Containers` button above
-2. Wait for the environment to load
-3. Run the following commands in the terminal:
-   ```bash
-   azd up
+1. Clone the repo
+2. This repo use the new azd to deploy agent. Please install the latest azd daily build. See Wait for the environment to load
+   #### Windows Install
+   ```pwsh
+   powershell -ex AllSigned -c "Invoke-RestMethod 'https://aka.ms/install-azd.ps1' -OutFile 'install-azd.ps1'; ./install-azd.ps1 -Version 'daily'"
    ```
-4. Follow the prompts to select your Azure subscription and region
-5. Wait for deployment to complete (5-10 minutes) - you'll get Azure Foundry Project URL and Azure AI Search URL when finished
-6. TODO: Load sample data to Azure AI Search
-7. TODO: Deploy NLWeb Hosted Agent using azd command or python script create_agent
-8. TODO: Test in the console script
+   #### Verify
+   ```pwsh
+   azd version
+   ```
+   It should show ```azd version 1.21.0-beta.1-daily.5539152``` or higher.
+3. Run ```azd env new``` in the terminal to create a new environment
+4. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region (choose West US2)
+   - The NLWeb agent code is at /app/NLWebAgent. It will build a docker image. Please start the Docker Desktop first.
+   - Several features require to opt-in your subscription. Please contact the team to enable your subscriptions.
+5. Wait for deployment to complete (5-10 minutes). What it does:
+   - Provision AI Foundry Project and Azure AI Search.
+   - Load the sample data to Azure AI Search.
+   - Deploy NLWeb as the hosted agent in AI Foundry Project.
+6. Test using script/nlweb-demo/single_turn_conversation.py and send MCP tools/list request
+   ```pwsh
+   # create a python venv 
+   cd scripts\nlweb-demo
+   pip install -r ./requirements.txt
+   python ./single_turn_conversation.py
+   ```
+   It sends MCP request tools/list and you should see the MCP response from the NLWeb agent.
+
+
 
 For detailed deployment options and troubleshooting, see the [full deployment guide](./docs/deployment.md).
 **After deployment, try these [sample questions](./docs/sample_questions.md) to test your agent.**

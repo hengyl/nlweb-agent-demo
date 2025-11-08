@@ -1,0 +1,6 @@
+azure-identity
+openai
+python-dotenv
+azure-cli
+./wheels/azure_ai_agents-2.0.0a20251015001-py3-none-any.whl
+./wheels/azure_ai_projects-2.0.0a20251015001-py3-none-any.whl
