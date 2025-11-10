@@ -4,4 +4,5 @@ nlweb-network>=0.5.2
 nlweb-azure-vectordb>=0.5.2
 nlweb-azure-models>=0.5.2
 
-./wheels/azure_ai_agentshosting-0.0.1+g407f536.d251024-py3-none-any.whl[langgraph]
+azure-ai-agentserver-core
+azure-ai-agentserver-langgraph

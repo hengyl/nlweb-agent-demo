@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from aiohttp import web
 from langgraph.graph import StateGraph, END, MessagesState
 from langchain_core.messages import AIMessage
-from azure.ai.agentshosting import from_langgraph
+from azure.ai.agentserver.langgraph import from_langgraph
 from nlweb_core.NLWebVectorDBRankingHandler import NLWebVectorDBRankingHandler
 from mcp_handler import MCPHandler
 from output_response import OutputResponse
