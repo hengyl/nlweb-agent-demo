@@ -2,7 +2,7 @@
 
 name: nlweb-agent-demo
 requiredVersions:
-  azd: ">=1.14.0"
+  azd: ">=1.20.0"
 
 services:
   NLWebAgent:
@@ -16,4 +16,9 @@ hooks:
       shell: pwsh
       run: ./scripts/load_data.ps1
       interactive: true
-      continueOnError: true
+      continueOnError: false
+    posix:
+      shell: sh
+      run: ./scripts/load_data.sh
+      interactive: true
+      continueOnError: false
