@@ -21,20 +21,17 @@ This project framework provides the following features:
 
 ## Getting Started
 
-Open in GitHub Codespaces
-Open in Dev Containers
-
 1. Clone the repo
-2. This repo use the new azd to deploy agent. Please install the latest azd daily build. See Wait for the environment to load
+2. This repo use the new azd to deploy agent. Please install the latest azd build 1.21.1 or higher.
    #### Windows Install
    ```pwsh
-   powershell -ex AllSigned -c "Invoke-RestMethod 'https://aka.ms/install-azd.ps1' -OutFile 'install-azd.ps1'; ./install-azd.ps1 -Version 'daily'"
+   winget install microsoft.azd
    ```
    #### Verify
    ```pwsh
    azd version
    ```
-   It should show ```azd version 1.21.0-beta.1-daily.5539152``` or higher.
+   It should show ```azd version 1.21.1``` or higher.
 3. Run ```azd env new``` in the terminal to create a new environment
 4. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region (choose West US2)
    - The NLWeb agent code is at /app/NLWebAgent. It will build a docker image. Please start the Docker Desktop first.
@@ -43,15 +40,15 @@ Open in Dev Containers
    - Provision AI Foundry Project and Azure AI Search.
    - Load the sample data to Azure AI Search.
    - Deploy NLWeb as the hosted agent in AI Foundry Project.
-6. Test using script/nlweb-demo/single_turn_conversation.py and send MCP tools/list request
+   - Create agent application
+6. Test using script/nlweb-demo/mcp_app_test.py and send MCP tools/list request
    ```pwsh
    # create a python venv 
    cd scripts/nlweb-demo
    pip install -r ./requirements.txt
-   python ./single_turn_conversation.py
+   python ./mcp_app_test.py
    ```
    It sends MCP request tools/list and you should see the MCP response from the NLWeb agent.
-
 
 
 For detailed deployment options and troubleshooting, see the [full deployment guide](./docs/deployment.md).

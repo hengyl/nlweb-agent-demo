@@ -35,8 +35,8 @@ def call_azure_management_api(method: str, url: str, body=None):
             print(f"API call successful! Status code: {response.status_code}")
             if response.content:
                 result = response.json()
-                print(f"Response:")
-                print(json.dumps(result, indent=2))
+                #print(f"Response:")
+                #print(json.dumps(result, indent=2))
                 return result
             else:
                 print("No response body")
