@@ -1,20 +1,17 @@
 name: NLWebAgent
 description: This agent can handle MCP requests and process NLWeb asks.
+kind: hosted
+environment_variables:
+  - name: AI_FOUNDRY_PROJECT_RESOURCE_ID
+    value: ${AI_FOUNDRY_PROJECT_RESOURCE_ID}
+  - name: AZURE_OPENAI_ENDPOINT
+    value: ${AZURE_OPENAI_ENDPOINT}
+  - name: AZURE_AI_SEARCH_ENDPOINT
+    value: ${AZURE_AI_SEARCH_ENDPOINT}
+
 metadata:
-  example:
-    - role: user
-      content: |-
-        MCP request, e.g., {"jsonrpc":"2.0","id":1,"method":"tools/list"}
   tags:
     - example
     - learning
   authors:
     - hengyl
-template:
-  name: NLWebAgent
-  kind: hosted
-  environment_variables:
-    - name: AZURE_OPENAI_ENDPOINT
-      value: ${AZURE_OPENAI_ENDPOINT}
-    - name: AZURE_AI_SEARCH_ENDPOINT
-      value: ${AZURE_AI_SEARCH_ENDPOINT}
