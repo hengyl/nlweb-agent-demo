@@ -92,17 +92,11 @@
     "embedDeploymentCapacity": {
       "value": "${AZURE_AI_EMBED_DEPLOYMENT_CAPACITY=50}"
     },
-        "embeddingDeploymentDimensions": {
-      "value": "${AZURE_AI_EMBED_DIMENSIONS=100}"
-    },
     "apiAppExists": {
       "value": "${SERVICE_API_RESOURCE_EXISTS=false}"
     },
     "azureExistingAIProjectResourceId": {
       "value": "${AZURE_EXISTING_AIPROJECT_RESOURCE_ID}"
-    },
-    "aiSearchIndexName": {
-      "value": "${AZURE_AI_SEARCH_INDEX_NAME=index_sample}"
     },
     "enableAzureMonitorTracing": {
       "value": "${ENABLE_AZURE_MONITOR_TRACING=false}"

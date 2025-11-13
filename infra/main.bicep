@@ -39,8 +39,6 @@ param applicationInsightsName string = ''
 param aiServicesName string = ''
 @description('The Azure Search resource name. If ommited will be generated')
 param searchServiceName string = ''
-@description('The Azure Search connection name. If ommited will use a default value')
-param searchConnectionName string = ''
 @description('The search index name')
 param aiSearchIndexName string = ''
 @description('The log analytics workspace name. If ommited will be generated')
@@ -81,8 +79,6 @@ param embedModelFormat string = 'OpenAI'
 param embedModelName string = 'text-embedding-3-small'
 @description('Name of the embedding model deployment')
 param embeddingDeploymentName string = 'text-embedding-3-small'
-@description('Embedding model dimensionality')
-param embeddingDeploymentDimensions string = '100'
 
 @description('Version of the embedding model to deploy')
 // See version availability in this table:
@@ -333,11 +329,9 @@ output AZURE_RESOURCE_GROUP string = rg.name
 // Outputs required for local development server
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_AI_AGENT_DEPLOYMENT_NAME string = agentDeploymentName
-output AZURE_AI_SEARCH_CONNECTION_NAME string = searchConnectionName
 output AZURE_AI_EMBED_DEPLOYMENT_NAME string = embeddingDeploymentName
 output AZURE_AI_SEARCH_INDEX_NAME string = aiSearchIndexName
 output AZURE_AI_SEARCH_ENDPOINT string = searchServiceEndpoint
-output AZURE_AI_EMBED_DIMENSIONS string = embeddingDeploymentDimensions
 output AZURE_OPENAI_ENDPOINT string = aoaiEndpoint
 output ENABLE_AZURE_MONITOR_TRACING bool = enableAzureMonitorTracing
 output AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED bool = azureTracingGenAIContentRecordingEnabled
