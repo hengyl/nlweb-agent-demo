@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/bin/bash
 
 . ./scripts/load_python_env.sh
 

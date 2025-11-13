@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/bin/bash
 
 # Check if RUN_LOAD_DATA environment variable is set to true
 if [ "$RUN_LOAD_DATA" == "false" ]; then

@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/bin/bash
 
 echo 'Creating Python virtual environment ".venvsh"...'
 python3 -m venv .venvsh

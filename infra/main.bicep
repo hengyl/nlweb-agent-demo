@@ -39,8 +39,6 @@ param applicationInsightsName string = ''
 param aiServicesName string = ''
 @description('The Azure Search resource name. If ommited will be generated')
 param searchServiceName string = ''
-@description('The search index name')
-param aiSearchIndexName string = ''
 @description('The log analytics workspace name. If ommited will be generated')
 param logAnalyticsWorkspaceName string = ''
 @description('Id of the user or app to assign application roles')
@@ -330,7 +328,6 @@ output AZURE_RESOURCE_GROUP string = rg.name
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_AI_AGENT_DEPLOYMENT_NAME string = agentDeploymentName
 output AZURE_AI_EMBED_DEPLOYMENT_NAME string = embeddingDeploymentName
-output AZURE_AI_SEARCH_INDEX_NAME string = aiSearchIndexName
 output AZURE_AI_SEARCH_ENDPOINT string = searchServiceEndpoint
 output AZURE_OPENAI_ENDPOINT string = aoaiEndpoint
 output ENABLE_AZURE_MONITOR_TRACING bool = enableAzureMonitorTracing
