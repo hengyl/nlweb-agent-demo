@@ -92,7 +92,8 @@ workflow.add_edge("nlweb", END)
 
 agent = workflow.compile()
 
-config_path = Path(__file__).parent / "config.yaml"
+# Use root-level config.yaml
+config_path = Path(__file__).parent.parent.parent / "config.yaml"
 nlweb_core.init(config_path=str(config_path))
 
 if __name__ == "__main__":

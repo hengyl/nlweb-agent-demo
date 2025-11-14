@@ -29,6 +29,17 @@ You will need the following services to use this template.
   * On Windows: ```winget install Docker.DockerDesktop```
   * On Mac:  ```brew install --cask docker```
 
+## Configuration
+
+The project uses a centralized `config.yaml` file at the root level to configure:
+
+* **LLM settings**: Azure OpenAI models (gpt-4o for high-complexity, gpt-4o-mini for low-complexity tasks)
+* **Embedding settings**: Text embedding model configuration
+* **Retrieval settings**: Azure AI Search configuration
+* **Data sources**: RSS feeds and other data sources to load
+
+You can customize model names, API endpoints, and data sources by editing `/config.yaml` before deployment.
+
 ## Getting Started
 
 1. Clone the repo
@@ -89,7 +100,6 @@ You will need the following services to use this template.
    ```
 
    It sends MCP request tools/list and you should see the MCP response from the NLWeb agent.
-
 
 For detailed deployment options and troubleshooting, see the [full deployment guide](./docs/deployment.md).
 **After deployment, try these [sample questions](./docs/sample_questions.md) to test your agent.**

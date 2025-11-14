@@ -11,8 +11,7 @@ param environmentName string
 // If using different models, update the SKU,capacity depending on the model you use.
 // https://learn.microsoft.com/azure/ai-services/agents/concepts/model-region-support
 @allowed([
-  'eastus'
-  'eastus2'
+  'northcentralus'
   'swedencentral'
   'westus2'
 ])
@@ -99,7 +98,7 @@ param embeddingDeploymentName string = 'text-embedding-3-small'
 param embedModelVersion string = '1'
 
 @description('Sku of the embeddings model deployment')
-param embedDeploymentSku string = 'Standard'
+param embedDeploymentSku string = 'GlobalStandard'
 
 @description('Capacity of the embedding deployment')
 // You can increase this, but capacity is limited per model/region, so you will get errors if you go over
@@ -155,6 +154,7 @@ var aiChatModel = [
     }
   }
 ]
+
 var aiEmbeddingModel = [ 
   {
     name: embeddingDeploymentName

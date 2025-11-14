@@ -7,3 +7,10 @@ __pycache__/
 .venvsh
 logs/
 .DS_store
+
+# Data files (keep small samples, ignore large datasets)
+data/*.csv
+data/*.json
+data/*.xlsx
+!data/README.md
+!data/.gitkeep
