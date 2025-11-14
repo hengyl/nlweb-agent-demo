@@ -164,7 +164,7 @@ var aiEmbeddingModel = [
       version: embedModelVersion
     }
     sku: {
-      name: embedDeploymentSku
+      name: location == 'westus2' ? 'Standard' : embedDeploymentSku
       capacity: embedDeploymentCapacity
     }
   }
