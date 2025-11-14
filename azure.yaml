@@ -3,33 +3,3 @@
 name: nlweb-agent-demo
 requiredVersions:
   azd: ">=1.21.1"
-
-services:
-  NLWebAgent:
-    project: app/NLWebAgent
-    host: azure.ai.agent
-    language: python
-
-hooks:
-  postprovision:
-    windows:
-      shell: pwsh
-      run: ./scripts/load_data.ps1
-      interactive: true
-      continueOnError: false
-    posix:
-      shell: sh
-      run: ./scripts/load_data.sh
-      interactive: true
-      continueOnError: false
-  postdeploy:
-    windows:
-      shell: pwsh
-      run: ./scripts/create_app.ps1
-      interactive: true
-      continueOnError: false
-    posix:
-      shell: sh
-      run: ./scripts/create_app.sh
-      interactive: true
-      continueOnError: false
