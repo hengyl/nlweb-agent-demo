@@ -35,7 +35,7 @@ The project uses a centralized `config.yaml` file at the root level to configure
 
 * **LLM settings**: Azure OpenAI models (gpt-4o for high-complexity, gpt-4o-mini for low-complexity tasks)
 * **Embedding settings**: Text embedding model configuration
-* **Retrieval settings**: Azure AI Search configuration
+* **Retrieval settings**: Azure AI Search configuration   //FUTURE: Add other data source endpoints
 * **Data sources**: RSS feeds and other data sources to load
 
 You can customize model names, API endpoints, and data sources by editing `/config.yaml` before deployment.
