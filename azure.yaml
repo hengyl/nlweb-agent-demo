@@ -3,3 +3,9 @@
 name: nlweb-agent-demo
 requiredVersions:
   azd: ">=1.21.1"
+
+services:
+  NLWebAgent:
+    project: app/NLWebAgent
+    host: azure.ai.agent
+    language: python
