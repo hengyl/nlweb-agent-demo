@@ -44,29 +44,44 @@ param logAnalyticsWorkspaceName string = ''
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
-// Chat completion model
-@description('Format of the chat model to deploy')
+// Chat completion models - Low (gpt-4o-mini)
+@description('Format of the low chat model to deploy')
 @allowed(['Microsoft', 'OpenAI'])
-param agentModelFormat string = 'OpenAI'
+param lowAgentModelFormat string = 'OpenAI'
 @description('ID of the existing agent')
 param azureExistingAgentId string = ''
-@description('Name of the chat model to deploy')
-param agentModelName string = 'gpt-4o-mini'
-@description('Name of the model deployment')
-param agentDeploymentName string = 'gpt-4o-mini'
+@description('Name of the low chat model to deploy')
+param lowAgentModelName string = 'gpt-4o-mini'
+@description('Name of the low model deployment')
+param lowAgentDeploymentName string = 'gpt-4o-mini'
 
-@description('Version of the chat model to deploy')
+@description('Version of the low chat model to deploy')
 // See version availability in this table:
 // https://learn.microsoft.com/azure/ai-services/openai/concepts/models#global-standard-model-availability
-param agentModelVersion string = '2024-07-18'
+param lowAgentModelVersion string = '2024-07-18'
 
-@description('Sku of the chat deployment')
-param agentDeploymentSku string = 'GlobalStandard'
+@description('Sku of the low chat deployment')
+param lowAgentDeploymentSku string = 'GlobalStandard'
 
-@description('Capacity of the chat deployment')
+@description('Capacity of the low chat deployment')
 // You can increase this, but capacity is limited per model/region, so you will get errors if you go over
 // https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits
-param agentDeploymentCapacity int = 30
+param lowAgentDeploymentCapacity int = 30
+
+// Chat completion models - High (gpt-4o)
+@description('Name of the high chat model to deploy')
+param highAgentModelName string = 'gpt-4o'
+@description('Name of the high model deployment')
+param highAgentDeploymentName string = 'gpt-4o'
+
+@description('Version of the high chat model to deploy')
+param highAgentModelVersion string = '2024-08-06'
+
+@description('Sku of the high chat deployment')
+param highAgentDeploymentSku string = 'GlobalStandard'
+
+@description('Capacity of the high chat deployment')
+param highAgentDeploymentCapacity int = 30
 
 // Embedding model
 @description('Format of the embedding model to deploy')
@@ -116,15 +131,27 @@ var tags = { 'azd-env-name': environmentName }
 
 var aiChatModel = [
   {
-    name: agentDeploymentName
+    name: lowAgentDeploymentName
     model: {
-      format: agentModelFormat
-      name: agentModelName
-      version: agentModelVersion
+      format: lowAgentModelFormat
+      name: lowAgentModelName
+      version: lowAgentModelVersion
     }
     sku: {
-      name: agentDeploymentSku
-      capacity: agentDeploymentCapacity
+      name: lowAgentDeploymentSku
+      capacity: lowAgentDeploymentCapacity
+    }
+  }
+  {
+    name: highAgentDeploymentName
+    model: {
+      format: lowAgentModelFormat
+      name: highAgentModelName
+      version: highAgentModelVersion
+    }
+    sku: {
+      name: highAgentDeploymentSku
+      capacity: highAgentDeploymentCapacity
     }
   }
 ]
@@ -326,7 +353,8 @@ output AZURE_RESOURCE_GROUP string = rg.name
 
 // Outputs required for local development server
 output AZURE_TENANT_ID string = tenant().tenantId
-output AZURE_AI_AGENT_DEPLOYMENT_NAME string = agentDeploymentName
+output AZURE_AI_LOW_AGENT_DEPLOYMENT_NAME string = lowAgentDeploymentName
+output AZURE_AI_HIGH_AGENT_DEPLOYMENT_NAME string = highAgentDeploymentName
 output AZURE_AI_EMBED_DEPLOYMENT_NAME string = embeddingDeploymentName
 output AZURE_AI_SEARCH_ENDPOINT string = searchServiceEndpoint
 output AZURE_OPENAI_ENDPOINT string = aoaiEndpoint

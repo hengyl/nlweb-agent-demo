@@ -2,7 +2,7 @@
 
 The agent leverages the Azure AI Agent service and enable NLWeb as MCP endpoint.
 
-[**FEATRURES**](#Features) \| [**GETTING STARTED**](#getting-started) \| [**LOCAL DEVELOPMENT**](#local-development) \| [**RESOURCE CLEAN-UP**](#resource-clean-up) \| [**GUIDANCE**](#guidance) \| [**TROUBLESHOOTING**](#troubleshooting)
+[**Features**](#features) \| [**Prerequisites**](#prerequisites) \| [**Getting Started**](#getting-started) \| [**Local Development**](#local-development) \| [**Resources Clean-Up**](#resource-clean-up) \| [**Guidance**](#guidance) \| [**Troubleshooting**](#troubleshooting)
 
 ## Important Security Notice
 
@@ -19,35 +19,73 @@ This project framework provides the following features:
 * **Managed Identity**: Built-in Azure Managed Identity for secure, keyless authentication between services
 * **Infrastructure as Code**: Complete Bicep templates for repeatable, version-controlled deployments
 
+## Prerequisites
+
+You will need the following services to use this template.
+
+* Azure Developer CLI (azd)
+* Bicep (installed with azd)
+* Docker
+  * On Windows: ```winget install Docker.DockerDesktop```
+  * On Mac:  ```brew install --cask docker```
+
 ## Getting Started
 
 1. Clone the repo
 2. This repo use the new azd to deploy agent. Please install the latest azd build 1.21.1 or higher.
-   #### Windows Install
+
+   ### Windows Install
+
    ```pwsh
    winget install microsoft.azd
    ```
-   #### Verify
+
+   ### Mac / Liunx Install
+
+   ```bash
+   brew install azure/azd/azd
+   ```
+
+   ### Verify Version
+
    ```pwsh
    azd version
    ```
+
    It should show ```azd version 1.21.1``` or higher.
-3. Run ```azd env new``` in the terminal to create a new environment
-4. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region (choose West US2)
-   - The NLWeb agent code is at /app/NLWebAgent. It will build a docker image. Please start the Docker Desktop first.
-   - Several features require to opt-in your subscription. Please contact the team to enable your subscriptions.
-5. Wait for deployment to complete (5-10 minutes). What it does:
-   - Provision AI Foundry Project and Azure AI Search.
-   - Load the sample data to Azure AI Search.
-   - Deploy NLWeb as the hosted agent in AI Foundry Project.
-   - Create agent application
-6. Test using script/nlweb-demo/mcp_app_test.py and send MCP tools/list request
+
+3. Start Docker Desktop
+
+   * On Windows: ```start docker```
+   * On Mac:  ```docker ps```
+
+4. Run ```azd env new``` in the terminal to create a new environment
+
+5. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region.
+   
+   **Supported regions:** East US, East US 2, Sweden Central, or West US 2
+   
+   > **Note:** Region availability may vary based on Azure capacity and your subscription's quota. If deployment fails with a model availability error, try a different region.
+
+   * The NLWeb agent code is at /app/NLWebAgent. This is used to build a docker image.
+   * Several features require to opt-in your subscription. Please contact the team to enable your subscriptions.
+
+6. Wait for deployment to complete (5-10 minutes). What it does:
+
+   * Provision AI Foundry Project and Azure AI Search.
+   * Load the sample data to Azure AI Search.
+   * Deploy NLWeb as the hosted agent in AI Foundry Project.
+   * Create agent application
+
+7. Test using script/nlweb-demo/mcp_app_test.py and send MCP tools/list request
+
    ```pwsh
    # create a python venv 
    cd scripts/nlweb-demo
    pip install -r ./requirements.txt
    python ./mcp_app_test.py
    ```
+
    It sends MCP request tools/list and you should see the MCP response from the NLWeb agent.
 
 
