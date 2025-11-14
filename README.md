@@ -74,7 +74,7 @@ You can customize model names, API endpoints, and data sources by editing `/conf
 
 5. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region.
 
-   **Supported regions:** East US, East US 2, Sweden Central, or West US 2
+   **Supported regions:** North Central US, Sweden Central, or West US 2
 
    > **Note:** Region availability may vary based on Azure capacity and your subscription's quota. If deployment fails with a model availability error, try a different region.
 
