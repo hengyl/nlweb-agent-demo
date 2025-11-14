@@ -33,8 +33,8 @@ You will need the following services to use this template.
 
 The project uses a centralized `config.yaml` file at the root level to configure:
 
-* **LLM settings**: Azure OpenAI models (gpt-4o for high-complexity, gpt-4o-mini for low-complexity tasks)
-* **Embedding settings**: Text embedding model configuration
+* **LLM settings**: Azure OpenAI models (defaults to gpt-4o for high-complexity, gpt-4o-mini for low-complexity tasks)
+* **Embedding settings**: Text embedding model configuration (defaults to text-embedding-3-small)
 * **Retrieval settings**: Azure AI Search configuration   //FUTURE: Add other data source endpoints
 * **Data sources**: RSS feeds and other data sources to load
 
