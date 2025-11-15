@@ -6,8 +6,8 @@ from load_azd_env import load_azd_env
 
 load_azd_env()
 
-# Use root-level config.yaml
-config_path = Path(__file__).parent.parent.parent / "config.yaml"
+# Use local config.yaml in scripts/nlweb-data
+config_path = Path(__file__).parent / "config.yaml"
 nlweb_dataload.init(config_path=str(config_path))
 
 # Load data sources from config

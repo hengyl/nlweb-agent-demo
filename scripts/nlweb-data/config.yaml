@@ -1,0 +1,13 @@
+# NLWeb Agent Demo - Data Source Configuration
+# This configuration is used to provide the sources to load data from. Many may be provided.
+
+# Data sources to load
+data_sources:
+  - url: https://feeds.libsyn.com/121695/rss
+    site_name: Behind-the-Tech
+    file_type: rss
+    batch_size: 50
+  - url: #URL or path to file in data folder (e.g. ./data/my-file.csv)
+    site_name: #Name for your 'site' or data set.  Used to manage and segment data.
+    file_type: #can be CSV, JSON, RSS, or XML
+    batch_size: #Default is 50; use smaller increments if timeouts are an issue

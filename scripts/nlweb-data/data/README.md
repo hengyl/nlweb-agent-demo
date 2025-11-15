@@ -10,7 +10,7 @@ Place your data files here for loading into the agent.
 
 ## Usage
 
-Add your data files to this directory, then reference them in `/config.yaml`:
+Add your data files to this directory, then reference them in `scripts/nlweb-data/config.yaml`:
 
 ```yaml
 data_sources:
@@ -19,6 +19,8 @@ data_sources:
     file_type: csv
     batch_size: 50
 ```
+
+Note: Paths are relative to the `scripts/nlweb-data/` directory where the data loading script runs.
 
 ## Note
 
