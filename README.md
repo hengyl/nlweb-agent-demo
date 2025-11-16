@@ -137,7 +137,7 @@ The deployment automatically loads sample data (Behind-the-Tech RSS feed) during
    # Set up Python environment and run data loader
    cd scripts/nlweb-data
    python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   source .venv/bin/activate  # On Windows: .venv\scripts\activate
    pip install -r requirements.txt
    python load_data.py
    ```
