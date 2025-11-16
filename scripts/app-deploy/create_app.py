@@ -57,7 +57,8 @@ if __name__ == "__main__":
     load_azd_env()
 
     project_resource_id = os.environ.get("AI_FOUNDRY_PROJECT_RESOURCE_ID")
-    agent_name = os.environ.get("AGENT_NAME")
+    agent_name = os.environ.get("AGENT_NLWEBAGENT_NAME")
+    agent_version = os.environ.get("AGENT_NLWEBAGENT_VERSION")
     app_name = f"{agent_name}App"
     deployment_name = "deployment1"
    
@@ -93,7 +94,7 @@ if __name__ == "__main__":
             "agents": [
               {
                 "agentName": agent_name,
-                "agentVersion": "1"
+                "agentVersion": agent_version
               }
             ]
         }

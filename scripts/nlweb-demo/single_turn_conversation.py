@@ -16,14 +16,14 @@ from load_azd_env import load_azd_env
 load_azd_env()
 
 project_endpoint = os.environ.get("AZURE_AI_PROJECT_ENDPOINT")
-api_version = "2025-05-15-preview"
+api_version = "2025-11-15-preview"
 if not project_endpoint:
     raise EnvironmentError("AZURE_AI_PROJECT_ENDPOINT not set. Please add it to a .env file or set the environment variable.")
 
-agent_name = os.environ.get("AGENT_NAME")
-agent_version = os.environ.get("AGENT_VERSION")
+agent_name = os.environ.get("AGENT_NLWEBAGENT_NAME")
+agent_version = os.environ.get("AGENT_NLWEBAGENT_VERSION")
 if not agent_name or not agent_version:
-    raise EnvironmentError("AGENT_NAME or AGENT_VERSION not set. Please add it to a .env file or set the environment variable.")
+    raise EnvironmentError("AGENT_NLWEBAGENT_NAME or AGENT_NLWEBAGENT_VERSION not set. Please add it to a .env file or set the environment variable.")
 
 print(f"Using ProjectEndpoint: {project_endpoint}, Agent: {agent_name}, version: {agent_version}")
 

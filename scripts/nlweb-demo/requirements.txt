@@ -1,5 +1,4 @@
 azure-identity
 openai
 python-dotenv
-azure-cli
 azure-ai-projects>=2.0.0b1
