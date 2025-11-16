@@ -8,9 +8,5 @@ __pycache__/
 logs/
 .DS_store
 
-# Data files (keep small samples, ignore large datasets)
-data/*.csv
-data/*.json
-data/*.xlsx
-!data/README.md
-!data/.gitkeep
+# Ignore the entire data loading folder
+scripts/nlweb-data/data/
