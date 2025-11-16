@@ -1,17 +1,7 @@
-# NLWeb Configuration for Azure Hello World Example
-# This configuration uses Azure OpenAI for LLM/embeddings and Azure AI Search for retrieval
+# NLWeb Agent Demo - Data Source Configuration
+# This configuration is used to provide the sources to load data from. Many may be provided.
 
-llm:
-  provider: azure_openai
-  import_path: nlweb_azure_models.llm.azure_oai
-  class_name: provider
-  endpoint_env: AZURE_OPENAI_ENDPOINT
-  api_version: "2024-02-01"
-  auth_method: azure_ad
-  models:
-    high: gpt-4.1
-    low: gpt-4.1-mini
-
+# Embedding configuration (required for data loading)
 embedding:
   provider: azure_openai
   import_path: nlweb_azure_models.embedding.azure_oai_embedding
@@ -20,6 +10,7 @@ embedding:
   auth_method: azure_ad
   model: text-embedding-3-small
 
+# Retrieval configuration (required for data loading)
 retrieval:
   provider: azure_ai_search
   import_path: nlweb_azure_vectordb.azure_search_client
@@ -30,3 +21,14 @@ retrieval:
   writer:
     import_path: nlweb_azure_vectordb.azure_search_writer
     class_name: AzureSearchWriter
+
+# Data sources to load
+data_sources:
+  - url: https://feeds.libsyn.com/121695/rss
+    site_name: Behind-the-Tech
+    file_type: rss
+    batch_size: 50
+#  - url: #URL or path to file in data folder (e.g. ./data/my-file.csv)
+#    site_name: #Name for your 'site' or data set.  Used to manage and segment data.
+#    file_type: #can be CSV, JSON, RSS, or XML
+#    batch_size: #Default is 50; use smaller increments if timeouts are an issue

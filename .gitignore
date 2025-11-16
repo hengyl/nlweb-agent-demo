@@ -6,3 +6,7 @@ __pycache__/
 .vscode
 .venvsh
 logs/
+.DS_store
+
+# Ignore the entire data loading folder
+scripts/nlweb-data/data/

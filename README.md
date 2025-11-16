@@ -29,6 +29,19 @@ You will need the following services to use this template.
   * On Windows: ```winget install Docker.DockerDesktop```
   * On Mac:  ```brew install --cask docker```
 
+## Configuration
+
+The project uses `config.yaml` files to configure:
+
+* **LLM settings**: Azure OpenAI models (defaults to gpt-4o for high-complexity, gpt-4o-mini for low-complexity tasks)
+* **Embedding settings**: Text embedding model configuration (defaults to text-embedding-3-small)
+* **Retrieval settings**: Azure AI Search configuration   //FUTURE: Add other data source endpoints
+* **Data sources**: RSS feeds and other data sources to load
+
+You can customize model names and API endpoints by editing `/config.yaml` before deployment.
+
+You can customize data sources by editing `scripts/nlweb-data/config.yaml` before deployment.
+
 ## Getting Started
 
 1. Clone the repo
@@ -62,13 +75,15 @@ You will need the following services to use this template.
 4. Run ```azd env new``` in the terminal to create a new environment
 
 5. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region.
-   
-   **Supported regions:** East US, East US 2, Sweden Central, or West US 2
-   
+
+   **Supported regions:** North Central US, Sweden Central, or West US 2
+
    > **Note:** Region availability may vary based on Azure capacity and your subscription's quota. If deployment fails with a model availability error, try a different region.
 
    * The NLWeb agent code is at /app/NLWebAgent. This is used to build a docker image.
    * Several features require to opt-in your subscription. Please contact the team to enable your subscriptions.
+
+   > **Deployment Tip:** If you encounter a precondition failure (IfMatchPreconditionFailed) during model deployment, this is a timing issue with Azure processing multiple model deployments. Simply run `azd up` again and it will continue from where it left off.
 
 6. Wait for deployment to complete (5-10 minutes). What it does:
 
@@ -88,9 +103,53 @@ You will need the following services to use this template.
 
    It sends MCP request tools/list and you should see the MCP response from the NLWeb agent.
 
-
 For detailed deployment options and troubleshooting, see the [full deployment guide](./docs/deployment.md).
 **After deployment, try these [sample questions](./docs/sample_questions.md) to test your agent.**
+
+## Loading Data
+
+The deployment automatically loads sample data (Behind-the-Tech RSS feed) during the `azd up` process. To add more data or reload data:
+
+### Add New Data Sources
+
+1. Edit `scripts/nlweb-data/config.yaml` to add your data sources:
+
+   ```yaml
+   data_sources:
+     - url: https://your-rss-feed.com/rss
+       site_name: Your-Site-Name
+       file_type: rss
+       batch_size: 50
+     - url: ./data/your-file.csv
+       site_name: Your-CSV-Data
+       file_type: csv
+       batch_size: 50
+   ```
+
+2. For CSV/JSON/XML files, place them in `scripts/nlweb-data/data/`
+
+3. Run the data loading script:
+
+   ```bash
+   # Load Azure environment variables
+   source <(azd env get-values)
+   
+   # Set up Python environment and run data loader
+   cd scripts/nlweb-data
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\scripts\activate
+   pip install -r requirements.txt
+   python load_data.py
+   ```
+
+### Skip Data Loading During Deployment
+
+To skip data loading during `azd up`, set the environment variable:
+
+```bash
+export RUN_LOAD_DATA=false
+azd up
+```
 
 ## Local Development
 
