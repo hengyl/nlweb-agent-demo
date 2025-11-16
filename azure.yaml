@@ -1,35 +1,42 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
-name: nlweb-agent-demo
 requiredVersions:
-  azd: ">=1.21.1"
+    azd: '>=1.21.1'
+name: nlweb-agent-demo
 
 services:
-  NLWebAgent:
-    project: app/NLWebAgent
-    host: azure.ai.agent
-    language: python
+    NLWebAgent:
+        project: app/NLWebAgent
+        host: azure.ai.agent
+        language: python
+        config:
+            container:
+                resources:
+                    cpu: "1"
+                    memory: 2Gi
+                scale:
+                    maxReplicas: 3
+                    minReplicas: 1
+infra:
+  path: infra
+  module: main
 
 hooks:
-  postprovision:
-    windows:
-      shell: pwsh
-      run: ./scripts/load_data.ps1
-      interactive: true
-      continueOnError: false
-    posix:
-      shell: sh
-      run: ./scripts/load_data.sh
-      interactive: true
-      continueOnError: false
-  postdeploy:
-    windows:
-      shell: pwsh
-      run: ./scripts/create_app.ps1
-      interactive: true
-      continueOnError: false
-    posix:
-      shell: sh
-      run: ./scripts/create_app.sh
-      interactive: true
-      continueOnError: false
+    postdeploy:
+        windows:
+            shell: pwsh
+            run: ./scripts/create_app.ps1
+            interactive: true
+        posix:
+            shell: sh
+            run: ./scripts/create_app.sh
+            interactive: true
+    postprovision:
+        windows:
+            shell: pwsh
+            run: ./scripts/load_data.ps1
+            interactive: true
+        posix:
+            shell: sh
+            run: ./scripts/load_data.sh
+            interactive: true

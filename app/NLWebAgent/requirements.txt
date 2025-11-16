@@ -1,8 +1,8 @@
 python-dotenv>=1.0.0
-nlweb-core>=0.5.5
-nlweb-network>=0.5.5
-nlweb-azure-vectordb>=0.5.5
-nlweb-azure-models>=0.5.5
+nlweb-core>=0.5.4
+nlweb-network>=0.5.4
+nlweb-azure-vectordb>=0.5.4
+nlweb-azure-models>=0.5.4
 
 azure-ai-agentserver-core
 azure-ai-agentserver-langgraph

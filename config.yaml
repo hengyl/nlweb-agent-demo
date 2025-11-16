@@ -1,5 +1,5 @@
-# NLWeb Agent Demo - Global Configuration
-# This configuration is used across all components: agent runtime, data loading, and deployment
+# NLWeb Agent Demo 
+# This configuration is used across agent runtime and deployment
 
 llm:
   provider: azure_openai
@@ -30,10 +30,3 @@ retrieval:
   writer:
     import_path: nlweb_azure_vectordb.azure_search_writer
     class_name: AzureSearchWriter
-
-# Data sources to load
-data_sources:
-  - url: https://feeds.libsyn.com/121695/rss
-    site_name: Behind-the-Tech
-    file_type: rss
-    batch_size: 50
