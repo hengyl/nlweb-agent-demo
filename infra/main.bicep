@@ -363,4 +363,5 @@ output AZURE_TRACING_GEN_AI_CONTENT_RECORDING_ENABLED bool = azureTracingGenAICo
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = acrLoginServer
 output AI_FOUNDRY_PROJECT_RESOURCE_ID string = projectResourceId
 output AZURE_AI_FOUNDRY_PROJECT_ID string = projectResourceId
+output AZURE_AI_PROJECT_ID string = projectResourceId
 output AZURE_AI_PROJECT_ENDPOINT string = projectEndpoint

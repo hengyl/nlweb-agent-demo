@@ -1,5 +1,5 @@
 asyncio
-nlweb-core>=0.5.2
-nlweb-dataload>=0.5.2
-nlweb-azure-models>=0.5.2
-nlweb-azure-vectordb>=0.5.2
+nlweb-core>=0.5.4
+nlweb-dataload>=0.5.4
+nlweb-azure-models>=0.5.4
+nlweb-azure-vectordb>=0.5.4

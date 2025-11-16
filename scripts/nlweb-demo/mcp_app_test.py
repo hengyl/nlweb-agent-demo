@@ -19,10 +19,10 @@ api_version = "2025-11-15-preview"
 if not project_endpoint:
     raise EnvironmentError("AZURE_AI_PROJECT_ENDPOINT not set. Please add it to a .env file or set the environment variable.")
 
-agent_name = os.environ.get("AGENT_NAME")
-agent_version = os.environ.get("AGENT_VERSION")
+agent_name = os.environ.get("AGENT_NLWEBAGENT_NAME")
+agent_version = os.environ.get("AGENT_NLWEBAGENT_VERSION")
 if not agent_name or not agent_version:
-    raise EnvironmentError("AGENT_NAME or AGENT_VERSION not set. Please add it to a .env file or set the environment variable.")
+    raise EnvironmentError("AGENT_NLWEBAGENT_NAME or AGENT_NLWEBAGENT_VERSION not set. Please add it to a .env file or set the environment variable.")
 
 credential = DefaultAzureCredential()
 
@@ -37,11 +37,8 @@ app_name = f"{agent_name}App"
 app_endpoint = f"{project_endpoint}/applications/{app_name}/protocols/mcp?api-version=2025-11-15-preview"
 print(f"Using Application Endpoint: {app_endpoint}")
 
-input_json = {
-    "jsonrpc": "2.0",
-    "id": 1,
-    "method": "tools/list"
-}
+input_json = {"jsonrpc": "2.0", "id": 1, "method": "tools/list"}
+
 response = requests.post(app_endpoint, headers=headers, json=input_json)
 
 print(f"Response status: {response.status_code}, text: {response.text}")
