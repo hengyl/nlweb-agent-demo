@@ -29,6 +29,17 @@ You will need the following services to use this template.
   * On Windows: ```winget install Docker.DockerDesktop```
   * On Mac:  ```brew install --cask docker```
 
+## Configuration
+
+The project uses a centralized `config.yaml` file at the root level to configure:
+
+* **LLM settings**: Azure OpenAI models (defaults to gpt-4o for high-complexity, gpt-4o-mini for low-complexity tasks)
+* **Embedding settings**: Text embedding model configuration (defaults to text-embedding-3-small)
+* **Retrieval settings**: Azure AI Search configuration   //FUTURE: Add other data source endpoints
+* **Data sources**: RSS feeds and other data sources to load
+
+You can customize model names, API endpoints, and data sources by editing `/config.yaml` before deployment.
+
 ## Getting Started
 
 1. Clone the repo
@@ -62,13 +73,15 @@ You will need the following services to use this template.
 4. Run ```azd env new``` in the terminal to create a new environment
 
 5. Run ```azd up``` in the terminal. Follow the prompts to select your Azure subscription and region.
-   
-   **Supported regions:** East US, East US 2, Sweden Central, or West US 2
-   
+
+   **Supported regions:** North Central US, Sweden Central, or West US 2
+
    > **Note:** Region availability may vary based on Azure capacity and your subscription's quota. If deployment fails with a model availability error, try a different region.
 
    * The NLWeb agent code is at /app/NLWebAgent. This is used to build a docker image.
    * Several features require to opt-in your subscription. Please contact the team to enable your subscriptions.
+
+   > **Deployment Tip:** If you encounter a precondition failure (IfMatchPreconditionFailed) during model deployment, this is a timing issue with Azure processing multiple model deployments. Simply run `azd up` again and it will continue from where it left off.
 
 6. Wait for deployment to complete (5-10 minutes). What it does:
 
@@ -87,7 +100,6 @@ You will need the following services to use this template.
    ```
 
    It sends MCP request tools/list and you should see the MCP response from the NLWeb agent.
-
 
 For detailed deployment options and troubleshooting, see the [full deployment guide](./docs/deployment.md).
 **After deployment, try these [sample questions](./docs/sample_questions.md) to test your agent.**
