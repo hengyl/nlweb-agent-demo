@@ -115,16 +115,17 @@ param enableAzureMonitorTracing bool = false
 @description('Do we want to use the Azure Monitor tracing for GenAI content recording')
 param azureTracingGenAIContentRecordingEnabled bool = false
 
-param templateValidationMode bool = false
+@description('Flag to decide where to create OpenAI role for current user')
+param createRoleForUser bool = true
 
 @description('Random seed to be used during generation of new resources suffixes.')
 param seed string = newGuid()
 
-var runnerPrincipalType = templateValidationMode? 'ServicePrincipal' : 'User'
+var runnerPrincipalType = createRoleForUser? 'User' : 'ServicePrincipal'
 
 var abbrs = loadJsonContent('./abbreviations.json')
 
-var resourceToken = templateValidationMode? toLower(uniqueString(subscription().id, environmentName, location, seed)) :  toLower(uniqueString(subscription().id, environmentName, location))
+var resourceToken = createRoleForUser? toLower(uniqueString(subscription().id, environmentName, location)) : toLower(uniqueString(subscription().id, environmentName, location, seed))
 
 var tags = { 'azd-env-name': environmentName }
 
