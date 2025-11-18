@@ -60,7 +60,7 @@ if __name__ == "__main__":
     agent_name = os.environ.get("AGENT_NLWEBAGENT_NAME")
     agent_version = os.environ.get("AGENT_NLWEBAGENT_VERSION")
     app_name = f"{agent_name}App"
-    deployment_name = "deployment1"
+    deployment_name = f"deployment-{agent_version}"
    
     # Create app
     print(f"Creating application '{app_name}' for agent '{agent_name}'...")
