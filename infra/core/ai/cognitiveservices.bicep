@@ -28,7 +28,7 @@ param networkAcls object = empty(allowedIpRules) ? {
   defaultAction: 'Deny'
 }
 
-resource account 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
+resource account 'Microsoft.CognitiveServices/accounts@2025-10-01-preview' = {
   name: aiServiceName
   location: location
   sku: sku
@@ -46,7 +46,7 @@ resource account 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   }
 }
 
-resource aiServiceConnection 'Microsoft.CognitiveServices/accounts/connections@2025-04-01-preview' = {
+resource aiServiceConnection 'Microsoft.CognitiveServices/accounts/connections@2025-10-01-preview' = {
   name: aoaiConnectionName
   parent: account
   properties: {
@@ -63,7 +63,7 @@ resource aiServiceConnection 'Microsoft.CognitiveServices/accounts/connections@2
 
 
 // Creates the Azure Foundry connection to your Azure App Insights resource
-resource appInsightConnection 'Microsoft.CognitiveServices/accounts/connections@2025-04-01-preview' = {
+resource appInsightConnection 'Microsoft.CognitiveServices/accounts/connections@2025-10-01-preview' = {
   name: appInsightConnectionName
   parent: account
   properties: {
@@ -81,7 +81,16 @@ resource appInsightConnection 'Microsoft.CognitiveServices/accounts/connections@
   }
 }
 
-resource aiProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' = {
+resource aiCapabilityHost 'Microsoft.CognitiveServices/accounts/capabilityHosts@2025-10-01-preview' = {
+  parent: account
+  name: 'accountcaphost'
+  properties: {
+    capabilityHostKind: 'Agents'
+    enablePublicHostingEnvironment: true
+  }
+}
+
+resource aiProject 'Microsoft.CognitiveServices/accounts/projects@2025-10-01-preview' = {
   parent: account
   name: aiProjectName
   location: location
@@ -95,7 +104,7 @@ resource aiProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-pre
   }
 }
 
-resource connection 'Microsoft.CognitiveServices/accounts/projects/connections@2025-04-01-preview' = {
+resource connection 'Microsoft.CognitiveServices/accounts/projects/connections@2025-10-01-preview' = {
   parent: aiProject
   name: 'acr-connection'
   properties: {
