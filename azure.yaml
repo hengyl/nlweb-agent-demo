@@ -3,6 +3,8 @@
 requiredVersions:
   azd: '>=1.21.2'
 name: nlweb-agent-demo
+metadata:
+  template: nlweb-agent-demo
 services:
   NLWebAgent:
     project: app/NLWebAgent
