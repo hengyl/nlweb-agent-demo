@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
-
 requiredVersions:
   azd: '>=1.21.2'
 name: nlweb-agent-demo
@@ -11,7 +9,7 @@ services:
     config:
       container:
         resources:
-          cpu: "1"
+          cpu: '1'
           memory: 2Gi
         scale:
           maxReplicas: 3
@@ -38,3 +36,5 @@ hooks:
       shell: sh
       run: ./scripts/load_data.sh
       interactive: true
+metadata:
+  template: nlweb-agent-demo@0.0.1-beta
